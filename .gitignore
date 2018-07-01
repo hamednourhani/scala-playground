@@ -1,0 +1,21 @@
+# Ensime & EMACS
+.ensime
+.ensime_cache
+*#
+
+# OTHER
+*.log
+target/
+.idea/
+project/project/
+project/target/
+releases/
+*.iml
+*.swp
+.arcconfig
+
+src/main/resources/application.conf
+
+docker/test.env
+
+
