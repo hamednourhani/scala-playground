@@ -1,7 +1,6 @@
 package ir.itstar.playground.dsl
 
 import ir.itstar.playground.monads._
-import scalaz.Id.Id
 
 //UI ADT
 sealed trait UserInteraction[+A]
@@ -14,6 +13,8 @@ case class Ask[A](question: A) extends UserInteraction[A]
 object UserInteraction extends FreeFunctions {
 
   import Free._
+
+  type Id[A] = A
 
   type InteractionDsl[A] = Free[UserInteraction, A]
 
