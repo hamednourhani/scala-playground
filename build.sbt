@@ -14,6 +14,7 @@ lazy val akkaVersion = "2.5.6"
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
   "org.slf4j" % "slf4j-simple" % "1.7.25",
+  "org.mongodb.scala" %% "mongo-scala-driver" % "2.4.0",
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,

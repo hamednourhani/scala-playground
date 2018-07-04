@@ -1,0 +1,49 @@
+{
+	"_id" : "apMi9DAiTCu1sDA6zUlRVg",
+	"fullName" : {
+		"gender" : "Male",
+		"name" : "",
+		"lastName" : "محمدی"
+	},
+	"description" : "نمایندگی پخش و اجرا انواع ایزوگام دلیجان.",
+	"notes" : "09394046810",
+	"warranties" : [
+		"ارائه بیمه و ضمانت نامه کتبی"
+	],
+	"licenses" : [ ],
+	"proContactInfo" : {
+		"tels" : [
+			"02133700622"
+		],
+		"cells" : [
+			"09124046810"
+		],
+		"webSite" : "",
+		"telegram" : "",
+		"instagram" : ""
+	},
+	"images" : [ ],
+	"updateTime" : "1516603904182",
+	"slug" : "ایزوگام-دلیجان-محمدی",
+	"verifications" : [
+		{
+			"_id" : "ca45RJHJSEyiuNHNmvu7YA",
+			"verificationType" : "SyndicateInfo",
+			"text" : "242",
+			"init" : "1519321973704",
+			"state" : "Accepted"
+		},
+		{
+			"_id" : "tiN6Ie0kS72poF5Ax7lhOg",
+			"verificationType" : "LocationCheck",
+			"text" : "location checked!",
+			"init" : "1519321973704",
+			"state" : "Accepted"
+		}
+	],
+	"managerName" : {
+		"name" : "",
+		"lastName" : "محمدی",
+		"gender" : "Male"
+	}
+}

@@ -3,6 +3,8 @@ package ir.itstar.playground.monads
 import ir.itstar.playground.dsl.{Executor, NaturalTransformation}
 import scalaz.Monad
 
+import scala.language.{higherKinds, implicitConversions}
+
 sealed trait Free[F[_], A] {
 
   def flatMap[B](f: A => Free[F, B]): Free[F, B] = this match {
