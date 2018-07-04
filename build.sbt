@@ -21,7 +21,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test",
   "com.ibm.icu" % "icu4j" % "60.2",
   "org.scalatest" %% "scalatest" % "3.0.4" % "test",
-  "org.scala-lang" % "scala-reflect" % "2.12.6",
   "org.scalamock" %% "scalamock" % "4.1.0" % "test",
-  "org.scalaz" %% "scalaz-core" % "7.2.23"
+  "org.scalaz" %% "scalaz-core" % "7.2.23",
+  "ir.itstar" %% "tiny-macros" % "0.0.1"
 )
