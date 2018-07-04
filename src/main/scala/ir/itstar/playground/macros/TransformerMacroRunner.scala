@@ -6,6 +6,8 @@ object TransformerMacroRunner extends App {
 
   println("transformer macro runner")
 
+
+
   implicit val initTransformer: Transformer[Int] = TransformerMacro.transform[Int]
   implicit val stringTransformer: Transformer[String] = TransformerMacro.transform[String]
   implicit val longTransformer: Transformer[Long] = TransformerMacro.transform[Long]
