@@ -43,8 +43,6 @@ object Country {
   }
 
 
-
-
 }
 
 case class CartCombinator(cartField: CartField) {
@@ -64,6 +62,12 @@ case class CartCombinator(cartField: CartField) {
   }
 }
 
+object CartCombinator {
+  implicit def fieldTocCartCombinator(cartField: CartField): CartCombinator = CartCombinator(cartField)
+
+  implicit def combinatorToCartField(comb: CartCombinator): CartField = comb.cartField
+}
+
 
 case class CountryContainer(country: Country) {
 
@@ -72,8 +76,8 @@ case class CountryContainer(country: Country) {
   }
 }
 
-object CountryContainer{
-  def For(country:Country) : CountryContainer = CountryContainer(country)
+object CountryContainer {
+  def For(country: Country): CountryContainer = CountryContainer(country)
 }
 
 case class TaxAndCountryContainer(country: Country, taxRate: BigDecimal) {
@@ -92,14 +96,17 @@ case class TaxAndCountryContainer(country: Country, taxRate: BigDecimal) {
 }
 
 
-object SampleTaxRules {
+object SampleTaxRules extends App {
+
   import CountryContainer._
+  import CartCombinator._
 
-
-  For(France) take 1.5
-  For(England) take 2.5 ignore Cart.shipping
-  For(England) take 2.5 ignore Cart.shipping If(Cart.discount > 10)
-  For(Iran) take 8 addTouristPrice (c => c.total * 0.3)
+  val taxRules: Seq[CountryToTaxCalculation] = Seq(
+    For(France) take 1.5,
+    For(England) take 2.5 ignore Cart.shipping,
+    For(England) take 2.5 ignore (Cart.shipping If Cart.discount > 10),
+    For(Iran) take 8 addTouristPrice (c => c.total * 0.3),
+  )
 
 }
 
