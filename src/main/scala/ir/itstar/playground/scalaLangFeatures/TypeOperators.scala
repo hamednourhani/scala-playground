@@ -5,7 +5,7 @@ object TypeOperators extends App {
   trait Parent[T] {
     val value: T
 
-    case class Child(name: T)
+    case class Child[F](name: T,id:F)
 
   }
 
@@ -14,9 +14,9 @@ object TypeOperators extends App {
     override val value: String = "parent"
   }
 
-  val child: Parent[Int]#Child = new Parent[Int] {
+  val child: Parent[Int]#Child[String] = new Parent[Int] {
     override val value: Int = 3
-  }.Child(2)
+  }.Child(2,"child")
 
   println(parent)
   println(child)
