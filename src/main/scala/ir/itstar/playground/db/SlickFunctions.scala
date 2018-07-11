@@ -12,6 +12,10 @@ trait SlickFunctions {
 
   def run[T](action: DBIO[T]): Future[T] = db.run(action)
 
+<<<<<<< HEAD
   def exec[T](f:Future[T]) : T = Await.result(f,Duration.Inf)
+=======
+  def await[T](f:Future[T]) : T = Await.result(f,Duration.Inf)
+>>>>>>> Add slick config
 
 }
