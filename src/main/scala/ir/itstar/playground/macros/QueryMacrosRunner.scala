@@ -13,8 +13,8 @@ object QueryMacrosRunner extends App{
 
   val userTable: Table[User] = Table[User]()
 
-  val result: Query[String] = userTable.map(_.name)
-
-  println(result)
+//  val result: Query[String] = userTable.map(_.name)
+//
+//  println(result)
 
 }

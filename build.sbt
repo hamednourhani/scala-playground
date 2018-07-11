@@ -23,5 +23,8 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.4" % "test",
   "org.scalamock" %% "scalamock" % "4.1.0" % "test",
   "org.scalaz" %% "scalaz-core" % "7.2.23",
-  "ir.itstar" %% "tiny-macros" % "0.0.1"
+  "ir.itstar" %% "tiny-macros" % "0.0.1",
+  "com.typesafe.slick" %% "slick" % "3.2.2",
+  "com.h2database" % "h2" % "1.4.185",
+  "ch.qos.logback" % "logback-classic" % "1.2.3"
 )
