@@ -26,5 +26,7 @@ libraryDependencies ++= Seq(
   "ir.itstar" %% "tiny-macros" % "0.0.1",
   "com.typesafe.slick" %% "slick" % "3.2.2",
   "com.h2database" % "h2" % "1.4.185",
-  "ch.qos.logback" % "logback-classic" % "1.2.3"
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+   "io.spray" %%  "spray-json" % "1.3.4",
+  "commons-codec" % "commons-codec" % "1.11"
 )
