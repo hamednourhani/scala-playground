@@ -1,10 +1,9 @@
 package ir.itstar.playground.utils
 
-
 import java.nio.file.{Files, Paths}
 import java.security.interfaces.RSAPublicKey
 import java.security.spec.{PKCS8EncodedKeySpec, X509EncodedKeySpec}
-import java.security.{KeyFactory, PrivateKey, PublicKey}
+import java.security.{KeyFactory, PrivateKey, PublicKey, Signature}
 import java.util.Base64
 
 import javax.crypto.Cipher
@@ -12,23 +11,44 @@ import javax.crypto.Cipher
 import scala.util.Try
 
 
-object RsaKeyLoader extends App {
+object EncryptionUtils {
+
+  private val optional_key: Option[PublicKey] = loadPublicKey("keys/flights_key.pem")
+
+  val example_key: PublicKey = optional_key match {
+    case Some(pk) =>
+      println("keys loaded successfully")
+      pk
+    case None     =>
+      throw new Exception("can not load flights private key")
+  }
+
+  private val optional_flights_privateKey: Option[PrivateKey] =
+    loadPrivateKey("keys/flights_private_key_pkcs8.pem")
+
+  val flights_private_key: PrivateKey = optional_flights_privateKey match {
+    case Some(pk) =>
+      println("keys loaded successfully")
+      pk
+    case None     =>
+      throw new Exception("can not load flights private key")
+  }
+
 
   /**
     * generate rsa public private pair
+    *
     * openssl genrsa -out private_key.pem 2048
     * openssl rsa -pubout -in private_key.pem -out public_key.pem
     *
     * openssl pkcs8 -topk8 -in private_key.pem -inform pem -out private_key_pkcs8.pem -outform pem -nocrypt
-    *
     */
 
   /**
-    *
-    * @param fileName : "private_key_pkcs8.pem"
+    * @param fileName : "flights_private_key_pkcs8.pem"
     * @return
     */
-  def loadPrivateKey(fileName:String): Option[PrivateKey] = {
+  private def loadPrivateKey(fileName: String): Option[PrivateKey] = {
     Try {
       val privateKeyContent =
         Files.readAllBytes(Paths.get(ClassLoader.getSystemResource(fileName).toURI))
@@ -41,14 +61,12 @@ object RsaKeyLoader extends App {
     }.toOption
   }
 
-  val privateKey = loadPrivateKey("private_key_pkcs8.pem")
-
   /**
     *
-    * @param fileName : "public_key.pem"
+    * @param fileName : "flights_key.pem"
     * @return
     */
-  def loadPublicKey(fileName:String): Option[PublicKey] = {
+  private def loadPublicKey(fileName: String): Option[PublicKey] = {
     Try {
       val publicKeyContent =
         Files.readAllBytes(Paths.get(ClassLoader.getSystemResource(fileName).toURI))
@@ -61,54 +79,49 @@ object RsaKeyLoader extends App {
     }.toOption
   }
 
-  val publicKey = loadPublicKey("public_key.pem")
 
   def encrypt(privateKey: PrivateKey, message: String): Option[Array[Byte]] = {
     Try {
       val cipher: Cipher = Cipher.getInstance("RSA")
       cipher.init(Cipher.ENCRYPT_MODE, privateKey)
-      cipher.doFinal(message.getBytes())
+      val encrypted = cipher.doFinal(message.getBytes())
+      Base64.getEncoder.encode(encrypted)
     }.toOption
   }
 
   def decrypt(publicKey: PublicKey, encrypted: Array[Byte]): String = {
+    val message = Base64.getDecoder.decode(encrypted)
     val cipher: Cipher = Cipher.getInstance("RSA")
     cipher.init(Cipher.DECRYPT_MODE, publicKey)
-    val result = cipher.doFinal(encrypted)
+    val result = cipher.doFinal(message)
     result.map(_.toChar).mkString
   }
 
-  val encoded: Option[Array[Byte]] = privateKey match {
-    case Some(pk) =>
-
-      val message =  """
-                       |{
-                       | "status" : 123,
-                       | "data" : {
-                       |     "name" : "hamed",
-                       |     "email" : "email@example.com",
-                       |     "phone" : "23156454",
-                       |     "cellphone" : "091215454"
-                       |    }
-                       |}
-                     """.stripMargin
-
-      val encrypted = encrypt(pk, message)
-      println(encrypted.getOrElse("notEncrypted"))
-      encrypted
-    case None     =>
-      println("private key not valid")
-      None
+  def sign(privateKey: PrivateKey, message: String): Option[String] = {
+    Try {
+      val privateSign = Signature.getInstance("SHA1withRSA")
+      privateSign.initSign(privateKey)
+      privateSign.update(message.getBytes("UTF-8"))
+      val signatureBytes: Array[Byte] = privateSign.sign()
+      Base64.getEncoder.encodeToString(signatureBytes)
+    }.toOption
   }
 
-  val decoded: Option[String] = encoded.flatMap(e => publicKey.map((_, e))) match {
-    case Some((pk, s)) =>
-      val decrypted: String = decrypt(pk, s)
-      println(decrypted)
-      Some(decrypted)
-    case None          =>
-      None
-
+  def verify(publicKey: PublicKey, message: String, signature: String): Boolean = {
+    Try {
+      val publicSignature = Signature.getInstance("SHA1withRSA")
+      publicSignature.initVerify(publicKey)
+      publicSignature.update(message.getBytes("UTF-8"))
+      val privateSignature = Base64.getDecoder.decode(signature)
+      println(privateSignature)
+      println(publicSignature)
+      publicSignature.verify(privateSignature)
+    }.toOption match {
+      case Some(true)  => true
+      case Some(false) => false
+      case None        =>
+        println("error while verifying message signature")
+        false
+    }
   }
-
 }
