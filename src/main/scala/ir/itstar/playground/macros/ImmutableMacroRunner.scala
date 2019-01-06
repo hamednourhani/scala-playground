@@ -1,6 +1,5 @@
 package ir.itstar.playground.macros
 
-import ir.itstar.tinyMacros.macros.Immutable
 
 object ImmutableMacroRunner extends App {
 
