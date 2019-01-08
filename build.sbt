@@ -16,6 +16,7 @@ libraryDependencies ++= Seq(
   "org.reactivemongo" %% "reactivemongo" % "0.16.1",
   "com.lightbend.akka" %% "akka-stream-alpakka-mongodb" % "1.0-M1",
   "org.slf4j" % "slf4j-simple" % "1.7.25",
+  "com.typesafe.scala-logging"  %% "scala-logging"        % "3.7.2",
   "org.mongodb.scala" %% "mongo-scala-driver" % "2.4.0",
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
