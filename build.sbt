@@ -13,6 +13,8 @@ lazy val akkaVersion = "2.5.6"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
+  "org.reactivemongo" %% "reactivemongo" % "0.16.1",
+  "com.lightbend.akka" %% "akka-stream-alpakka-mongodb" % "1.0-M1",
   "org.slf4j" % "slf4j-simple" % "1.7.25",
   "org.mongodb.scala" %% "mongo-scala-driver" % "2.4.0",
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
@@ -28,5 +30,6 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.4.185",
   "ch.qos.logback" % "logback-classic" % "1.2.3",
    "io.spray" %%  "spray-json" % "1.3.4",
-  "commons-codec" % "commons-codec" % "1.11"
+  "commons-codec" % "commons-codec" % "1.11",
+  "com.typesafe.akka" %% "akka-http-xml" % "10.0.9"
 )
