@@ -15,6 +15,8 @@ resolvers ++= Seq(
 lazy val akkaHttpVersion = "10.0.10"
 lazy val akkaVersion = "2.5.6"
 
+val catsVersion = "1.5.0"
+
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
@@ -39,5 +41,8 @@ libraryDependencies ++= Seq(
   "commons-codec" % "commons-codec" % "1.11",
   "com.typesafe.akka" %% "akka-http-xml" % "10.0.9",
   "com.chuusai" %% "shapeless" % "2.3.3",
-  "org.typelevel" %% "cats-core" % "1.5.0"
+  "org.typelevel" %% "cats-core" % catsVersion,
+  "com.github.julien-truffaut" %%  "monocle-core"  % catsVersion,
+  "com.github.julien-truffaut" %%  "monocle-macro" % catsVersion,
+  "com.github.julien-truffaut" %%  "monocle-law"   % catsVersion % "test"
 )
