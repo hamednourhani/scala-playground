@@ -4,7 +4,12 @@ version := "0.1"
 
 scalaVersion := "2.12.6"
 
-scalacOptions ++= Seq("-feature")
+scalacOptions ++= Seq("-feature","-Ypartial-unification")
+
+resolvers ++= Seq(
+  Resolver.sonatypeRepo("releases"),
+  Resolver.sonatypeRepo("snapshots")
+)
 
 
 lazy val akkaHttpVersion = "10.0.10"
@@ -32,5 +37,7 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.2.3",
    "io.spray" %%  "spray-json" % "1.3.4",
   "commons-codec" % "commons-codec" % "1.11",
-  "com.typesafe.akka" %% "akka-http-xml" % "10.0.9"
+  "com.typesafe.akka" %% "akka-http-xml" % "10.0.9",
+  "com.chuusai" %% "shapeless" % "2.3.3",
+  "org.typelevel" %% "cats-core" % "1.5.0"
 )
