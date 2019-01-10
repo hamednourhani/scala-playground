@@ -34,7 +34,7 @@ object ShapelessStarter extends App with LazyLogging{
   }
 
   //map
-  objects.map(plusOne)
+//  objects.map(plusOne)
 
 
   implicit val stringShow: Show[String] = Show.fromToString[String]
@@ -58,7 +58,7 @@ object ShapelessStarter extends App with LazyLogging{
   (1, "foo", 12.3).tail // returns (foo,12.3)
 
   //lens
-  val nameLens = lens[Model].name
+//  val nameLens = lens[Model].name
 
   val m = Model("hamed",2)
   //    nameLens.get(m)
@@ -83,7 +83,7 @@ object ShapelessStarter extends App with LazyLogging{
 
   val int2 = 0
 
-  val k: Int = Try(int/int2).toOption.getOrElse(0)
+  val resultOfDivision: Int = Try(int/int2).toOption.getOrElse(0)
 
 
   trait Monad[+A]{

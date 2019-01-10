@@ -82,12 +82,9 @@ object CatsStarter extends App with LazyLogging{
 
 
   val o1 = Some(2)
-  val o2 = None
+  val o2 :Option[Int]= None
 
-
-  o1.flatMap(i => o2.map(j => i+j))
-
-  val optionApplicative = Applicative[Option[Int]]
+  val optionApplicative = Applicative[Option]
 
   val optionListApplicative = Applicative[Option].compose[List]
 
@@ -109,7 +106,7 @@ object CatsStarter extends App with LazyLogging{
   val f2 = Future.successful(Some(4))
   val futureOptionApplicative = Applicative[Future].compose[Option]
   val f3: Future[Option[Int]] = futureOptionApplicative.map2(f1,f2)(_ + _)
-  futureOptionApplicative.map3(Future(Some(1)),Future(None),Future(Some(3)))(_ * _ + _)
+  futureOptionApplicative.map3(Future(Some(1)),Future(Some(3)),Future(Some(3)))(_ * _ + _)
 
   val futureOptionListApplicative = futureOptionApplicative.compose[List]
   val f4 = Future.successful(Some(List.empty[Int]))
