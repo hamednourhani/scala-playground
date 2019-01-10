@@ -7,7 +7,7 @@ import akka.stream._
 import akka.stream.scaladsl.{Balance, Flow, GraphDSL, Merge, MergePreferred, RunnableGraph, Sink, Source}
 
 import scala.collection.immutable
-object StreamOfPriorityWorkerPool {
+object GraphOfPriorityWorkerPool {
 
   implicit val system: ActorSystem = ActorSystem("StreamStarter")
   implicit val materializer: ActorMaterializer = ActorMaterializer()

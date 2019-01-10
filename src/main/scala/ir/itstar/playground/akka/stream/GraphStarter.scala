@@ -10,7 +10,7 @@ import scala.collection.immutable
 import scala.concurrent.{Await, Future}
 
 
-object StreamStarter extends App with LazyLogging {
+object GraphStarter extends App with LazyLogging {
 
   implicit val system: ActorSystem = ActorSystem("StreamStarter")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
