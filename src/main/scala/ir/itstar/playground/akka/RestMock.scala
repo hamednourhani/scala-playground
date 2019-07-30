@@ -1,21 +1,20 @@
 package ir.itstar.playground.akka
 
-import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
-import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.server.Directives._
-import akka.stream.ActorMaterializer
-import ir.itstar.playground.akka.RestMock.LogIt
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.StdIn
 
+import akka.actor.ActorSystem
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.server.Directives._
+import akka.stream.ActorMaterializer
+import spray.json.JsValue
+
 object RestMock extends App {
 
-  implicit val system: ActorSystem = ActorSystem("MockActorSystem")
+  implicit val system:       ActorSystem       = ActorSystem("MockActorSystem")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
-
-  lazy val loggerActor = system.actorOf(Props(new LoggerActor()), "LoggerActor")
 
   sys.addShutdownHook(system.terminate())
 
@@ -33,16 +32,23 @@ object RestMock extends App {
     """.stripMargin
 
   val routes =
-    post {
-      path("logger") {
-        pathEndOrSingleSlash {
-          entity(as[String]) { body =>
-            loggerActor ! LogIt(body)
-            complete(StatusCodes.OK)
-          }
+  post {
+    path("logger") {
+      pathEndOrSingleSlash {
+        entity(as[String]) { body => complete(StatusCodes.OK)
         }
       }
     }
+  } ~ pathPrefix("test" / "logger" / "cancellation" / "consumer-event") {
+    post {
+      pathEndOrSingleSlash {
+        entity(as[JsValue]) { body =>
+          println(body.toString)
+          complete(StatusCodes.OK)
+        }
+      }
+    }
+  }
 
   val server = Http().bindAndHandle(routes, "localhost", 9090)
   println("server started at : localhost:9090")
@@ -52,16 +58,4 @@ object RestMock extends App {
 
   case class LogIt(body: String)
 
-}
-
-
-class LoggerActor extends Actor with ActorLogging {
-  import spray.json._
-  import DefaultJsonProtocol._ // if you don't supply your own Protocol (see below)
-
-  override def receive: Receive = {
-    case LogIt(body: String) =>
-      log.debug(body)
-      log.debug(body.parseJson.prettyPrint)
-  }
 }

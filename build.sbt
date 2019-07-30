@@ -13,7 +13,8 @@ resolvers ++= Seq(
 
 
 lazy val akkaHttpVersion = "10.0.10"
-lazy val akkaVersion = "2.5.6"
+lazy val akkaVersion = "2.5.22"
+lazy val zioVersion = "1.0-RC4"
 
 val catsVersion = "1.5.0"
 
@@ -25,8 +26,10 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-simple" % "1.7.25",
   "com.typesafe.scala-logging"  %% "scala-logging"        % "3.7.2",
   "org.mongodb.scala" %% "mongo-scala-driver" % "2.4.0",
+  "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+  "com.typesafe.akka" %% "akka-typed" % "2.5.8",
   "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
-  "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+  "com.typesafe.akka"          %% "akka-slf4j"     % "2.4.12",
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test",
   "com.ibm.icu" % "icu4j" % "60.2",
@@ -44,5 +47,11 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-core" % catsVersion,
   "com.github.julien-truffaut" %%  "monocle-core"  % catsVersion,
   "com.github.julien-truffaut" %%  "monocle-macro" % catsVersion,
-  "com.github.julien-truffaut" %%  "monocle-law"   % catsVersion % "test"
+  "com.github.julien-truffaut" %%  "monocle-law"   % catsVersion % "test",
+  "org.scalaz" %% "scalaz-zio" % zioVersion,
+  "org.scalaz" %% "scalaz-zio-streams" % zioVersion,
+  "com.github.mpilquist" %% "simulacrum" % "0.19.0"
+
 )
+
+addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
