@@ -50,7 +50,8 @@ libraryDependencies ++= Seq(
   "com.github.julien-truffaut" %%  "monocle-law"   % catsVersion % "test",
   "org.scalaz" %% "scalaz-zio" % zioVersion,
   "org.scalaz" %% "scalaz-zio-streams" % zioVersion,
-  "com.github.mpilquist" %% "simulacrum" % "0.19.0"
+  "com.github.mpilquist" %% "simulacrum" % "0.19.0",
+  "com.propensive" %% "magnolia" % "0.11.0"
 
 )
 
