@@ -15,9 +15,6 @@ import cats.instances.tuple._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-
-
-
 object CatsStarter extends App with LazyLogging{
 
   //Type class
@@ -121,4 +118,8 @@ object CatsStarter extends App with LazyLogging{
 
   val s: Future[Option[(String, Int)]] = futureOptionFunctor.tupleLeft(Future(Some(2)),"Hamed")
   val s2: Future[Option[(Int, String)]] = futureOptionFunctor.tupleRight(Future(Some(2)),"Hamed")
+
+
+
+
 }
